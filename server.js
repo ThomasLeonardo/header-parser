@@ -16,8 +16,8 @@ app.get('/api/whoami',function(req,res){
 	var object={};
 	var ips=req.ip.split(':');
 	object['ipaddress']=ips[ips.length-1];
-	object['language']=req.headers['user-agent'].split('(')[1].split(')')[0];
-	object['software']=req.headers['accept-language'].split(',')[0];
+	object['language']=req.headers['accept-language'].split(',')[0];
+	object['software']=req.headers['user-agent'].split('(')[1].split(')')[0];
 	//console.log(req.headers);
 	res.end(JSON.stringify(object));
 });
