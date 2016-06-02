@@ -7,25 +7,14 @@ var passport = require('passport');
 var session = require('express-session');
 
 var app = express();
-require('dotenv').load();
-require('./app/config/passport')(passport);
+app.get('/api/whoami',function(req,res){
+	var object={};
+	object['ipadress']=req.ip;
+	//object['language']=req
+	console.log(req);
+	res.end(JSON.stringify(object));
+})
 
-mongoose.connect(process.env.MONGO_URI);
-
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
-
-app.use(session({
-	secret: 'secretClementine',
-	resave: false,
-	saveUninitialized: true
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-routes(app, passport);
 
 var port = process.env.PORT || 8080;
 app.listen(port,  function () {
